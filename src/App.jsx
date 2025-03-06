@@ -185,13 +185,13 @@ function App() {
                 </div>
                 <div>
                   <button
-                    className="p-2 text-lg rounded-md bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ms-2"
+                    className="p-2 text-lg rounded-md bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ms-2 cursor-pointer"
                     onClick={() => editTodo(item.id)}
                   >
                     <BiEdit />
                   </button>
                   <button
-                    className="p-2 text-lg rounded-md bg-red-500 hover:bg-red-600 text-white transition duration-300 ms-2"
+                    className="p-2 text-lg rounded-md bg-red-500 hover:bg-red-600 text-white transition duration-300 ms-2 cursor-pointer"
                     onClick={() => deleteTodo(item.id)}
                   >
                     <BiTrash />
