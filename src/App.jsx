@@ -149,6 +149,7 @@ function App() {
           onChange={(e) => setTodo(e.target.value)}
           className="border border-gray-400 p-2 w-[65vw] md:w-[50vw] rounded-md outline-0 focus:ring-2 focus:ring-blue-400 text-white"
           placeholder="Enter your todo"
+          required
         />
         <button
           type="submit"
