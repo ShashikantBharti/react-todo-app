@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,12 +12,19 @@ function App() {
   const [toDelete, setToDelete] = useState("");
   // edit id to edit todo item
   const [editId, setEditId] = useState("");
+  // Track Completed Task
+  const [completed, setCompleted] = useState(0);
 
   useEffect(() => {
     if (sessionStorage.getItem("todos") != null) {
       setTodos(JSON.parse(sessionStorage.getItem("todos")));
+      setCompleted(todos.filter((item) => item.isCompleted == true).length);
     }
   }, []);
+
+  useEffect(() => {
+    setCompleted(todos.filter((item) => item.isCompleted == true).length);
+  }, [todos]);
 
   /**
    * To add new todo item in the list
@@ -78,6 +85,11 @@ function App() {
       }
       return item;
     });
+
+    setCompleted(
+      updatedTodos.filter((item) => item.isCompleted == true).length
+    );
+
     setTodos(updatedTodos);
     sessionStorage.setItem("todos", JSON.stringify(updatedTodos));
   };
@@ -104,15 +116,29 @@ function App() {
     setToDelete("");
   };
 
+  const percentage = Math.floor((completed / todos.length) * 100);
+
   return (
     <div className="min-h-screen flex flex-col justify-start pt-5 items-center bg-gray-800">
       <h1 className="text-4xl font-bold text-gray-400 drop-shadow-lg">
         To-Do List
       </h1>
+      {/* Status */}
+      <div className="mt-3 w-[80vw] md:w-[57vw] flex items-center justify-between">
+        <div className="ms-auto h-3 bg-gray-900 w-[80%] md:w-[90%] rounded-2xl flex items-center p-1">
+          <div
+            style={{ width: `${percentage}%` }}
+            className="h-1 bg-green-500 rounded-2xl transition-all duration-500 ease-in-out"
+          ></div>
+        </div>
+        <div className="rounded-full border-4 border-green-500 absolute w-[50px] h-[50px] flex items-center justify-center text-green-500">
+          <span>{completed}</span>/<span>{todos.length}</span>
+        </div>
+      </div>
       {/* Form to add new todo item */}
       <motion.form
         onSubmit={addTodo}
-        className="flex mt-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg"
+        className="flex mt-5 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
