@@ -147,7 +147,7 @@ function App() {
           type="text"
           value={todo}
           onChange={(e) => setTodo(e.target.value)}
-          className="border border-gray-400 p-2 w-[65vw] md:w-[50vw] rounded-md outline-0 focus:ring-2 focus:ring-blue-400 text-white"
+          className="border border-gray-400 p-2 w-[70vw] md:w-[50vw] rounded-md outline-0 focus:ring-2 focus:ring-blue-400 text-white"
           placeholder="Enter your todo"
           required="true"
         />
@@ -165,11 +165,12 @@ function App() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.4 }}
+          className="flex md:block"
         >
           <select
             value={toDelete}
             onChange={(e) => setToDelete(e.target.value)}
-            className="border p-2 border-gray-400 rounded-md text-gray-400"
+            className="border p-2 border-gray-400 rounded-md text-gray-400 flex-1"
           >
             <option>Choose Option</option>
             <option value="all">Delete All</option>
